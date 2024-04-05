@@ -8,7 +8,11 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
@@ -19,4 +23,9 @@ html {
 
 body {
   margin-bottom: 60px;
+  background: hsla(284, 80%, 10%, 1);
+  background: linear-gradient(315deg, hsla(284, 80%, 10%, 1) 0%, hsla(290, 53%, 34%, 1) 100%);
+  background: -moz-linear-gradient(315deg, hsla(284, 80%, 10%, 1) 0%, hsla(290, 53%, 34%, 1) 100%);
+  background: -webkit-linear-gradient(315deg, hsla(284, 80%, 10%, 1) 0%, hsla(290, 53%, 34%, 1) 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#22052d", endColorstr="#762985", GradientType=1);
 }

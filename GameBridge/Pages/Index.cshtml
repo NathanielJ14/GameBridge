@@ -4,56 +4,58 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
+<div class="text-center text-white">
     <h1 class="display-4">Welcome To GameBridge</h1>
-    <p>This app will allow you to track your friends online prescense from multiple platforms</p>
+    <p>This app will allow you to track your friends online presence from multiple platforms</p>
 </div>
 
-<div class="row container">
-    <div class="col">
-        @* Login Form *@
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Login</h5>
-                <form method="post">
-                    <div class="mb-3">
-                        <label for="loginEmail" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="loginEmail" aria-describedby="email">
-                    </div>
-                    <div class="mb-3">
-                        <label for="loginPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="loginPassword">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </form>
+<div class="mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4 mx-5">
+            <!-- Login Form -->
+            <div class="card bg-dark text-white ">
+                <div class="card-body">
+                    <h5 class="card-title fs-2 text-center mb-4">Login</h5>
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="loginEmail" aria-describedby="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col">
-        @* Register Form *@
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Register</h5>
-                <form method="post">
-                    <div class="mb-3">
-                        <label for="regUsername" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="regUsername">
-                    </div>
-                    <div class="mb-3">
-                        <label for="regEmail" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="regEmail">
-                    </div>
-                    <div class="mb-3">
-                        <label for="regPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="regPassword">
-                    </div>
-                    <div class="mb-3">
-                        <label for="conPassword" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="conPassword">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </form>
+        <div class="col-md-4 mx-5">
+            <!-- Register Form -->
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                    <h5 class="card-title fs-2 text-center mb-4">Register</h5>
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="regUsername" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="regUsername">
+                        </div>
+                        <div class="mb-3">
+                            <label for="regEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="regEmail">
+                        </div>
+                        <div class="mb-3">
+                            <label for="regPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="regPassword">
+                        </div>
+                        <div class="mb-3">
+                            <label for="conPassword" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="conPassword">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
