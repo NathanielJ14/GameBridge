@@ -23,9 +23,9 @@ html {
 
 body {
   margin-bottom: 60px;
-  background: hsla(284, 80%, 10%, 1);
-  background: linear-gradient(315deg, hsla(284, 80%, 10%, 1) 0%, hsla(290, 53%, 34%, 1) 100%);
-  background: -moz-linear-gradient(315deg, hsla(284, 80%, 10%, 1) 0%, hsla(290, 53%, 34%, 1) 100%);
-  background: -webkit-linear-gradient(315deg, hsla(284, 80%, 10%, 1) 0%, hsla(290, 53%, 34%, 1) 100%);
-  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#22052d", endColorstr="#762985", GradientType=1);
+  background:
+    linear-gradient(to right, rgba(0, 0, 0, 0), rgba(129, 4, 160, 0.8)),
+    url('https://images.unsplash.com/photo-1586182987320-4f376d39d787?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') left center / auto 100% no-repeat;
+  background-size: cover;
+  background-blend-mode: multiply;
 }
