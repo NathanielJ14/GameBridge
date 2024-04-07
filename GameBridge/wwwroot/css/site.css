@@ -28,4 +28,15 @@ body {
     url('https://images.unsplash.com/photo-1586182987320-4f376d39d787?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') left center / auto 100% no-repeat;
   background-size: cover;
   background-blend-mode: multiply;
+  font-family: "Tilt Neon", sans-serif;
+}
+
+.authBtn {
+  color: white;
+  border: 1.5px solid #bd1c6a;
+}
+
+.authBtn:hover {
+  background-color: #bd1c6a;
+  color: white;
 }
