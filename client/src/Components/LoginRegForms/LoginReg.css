@@ -1,0 +1,13 @@
+.form {
+    width: 35%;
+}
+
+button {
+    width: 60%;
+    color: white;
+    background-color: blueviolet;
+}
+
+button:hover {
+    background-color: rgb(161, 71, 246);
+}
