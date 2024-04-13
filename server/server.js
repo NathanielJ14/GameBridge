@@ -53,6 +53,40 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
+
+// API endpoint for user login
+app.post('/api/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        // Check if the user exists in the database
+        const sql = 'SELECT * FROM users WHERE email = ?';
+        db.get(sql, [email], async (err, user) => {
+            if (err) {
+                console.error('Error finding user:', err);
+                return res.status(500).json({ error: 'Login failed' });
+            }
+
+            if (!user) {
+                return res.status(401).json({ error: 'Invalid credentials' });
+            }
+
+            // Compare the provided password with the hashed password stored in the database
+            const isPasswordMatch = await bcrypt.compare(password, user.password);
+            if (!isPasswordMatch) {
+                return res.status(401).json({ error: 'Invalid credentials' });
+            }
+
+            // Passwords match - user authenticated
+            res.json({ message: 'Login successful', user: { id: user.id, username: user.username, email: user.email } });
+        });
+    } catch (error) {
+        console.error('Error logging in user:', error);
+        res.status(500).json({ error: 'Login failed' });
+    }
+});
+
+
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
