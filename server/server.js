@@ -98,12 +98,33 @@ app.post('/api/login', async (req, res) => {
             req.session = {
                 id: user.id, username: user.username, email: user.email
             };
+
         });
     } catch (error) {
         console.error('Error logging in user:', error);
         res.status(500).json({ error: 'Login failed' });
     }
 });
+
+
+// API endpoint for user logout
+app.post('/api/logout', (req, res) => {
+    try {
+        // Destroy the session
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Error destroying session:', err);
+                return res.status(500).json({ error: 'Logout failed' });
+            }
+            // Session destroyed successfully
+            res.json({ message: 'Logout successful' });
+        });
+    } catch (error) {
+        console.error('Logout failed:', error);
+        res.status(500).json({ error: 'Logout failed' });
+    }
+});
+
 
 
 // Start the server
