@@ -3,12 +3,24 @@ const bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
 const cors = require('cors');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 const port = 3001;
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(cookieParser());
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false,
+        maxAge: 1000 * 60 * 60 * 24
+    }
+}))
 
 // Connect to SQLite database
 const db = new sqlite3.Database('./gamebridgeDB.db', (err) => {
@@ -45,6 +57,10 @@ app.post('/api/register', async (req, res) => {
             } else {
                 console.log('User registered successfully');
                 res.json({ message: 'Registration successful' });
+                // Save user info in session
+                req.session = {
+                    username: username, email: email
+                };
             }
         });
     } catch (error) {
@@ -77,8 +93,11 @@ app.post('/api/login', async (req, res) => {
                 return res.status(401).json({ error: 'Invalid credentials' });
             }
 
-            // Passwords match - user authenticated
             res.json({ message: 'Login successful', user: { id: user.id, username: user.username, email: user.email } });
+            // Save user info in session
+            req.session = {
+                id: user.id, username: user.username, email: user.email
+            };
         });
     } catch (error) {
         console.error('Error logging in user:', error);
