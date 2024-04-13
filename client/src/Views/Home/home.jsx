@@ -3,8 +3,7 @@ import LoginForm from "../../Components/LoginRegForms/LoginForm";
 import RegisterForm from "../../Components/LoginRegForms/RegisterForm";
 import "../Home/home.css";
 
-function Home() {
-
+const Home = () => {
     return (
         <div className="home text-white">
             <div className="text-center mt-4">
