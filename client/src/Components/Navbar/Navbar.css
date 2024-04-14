@@ -6,3 +6,11 @@ a {
     color: white;
     list-style: none;
 }
+
+a:hover {
+    color: #b47bf4;
+}
+
+.navHeader {
+    color: #af6bff;
+}

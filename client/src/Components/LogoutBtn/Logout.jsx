@@ -26,7 +26,7 @@ const Logout = () => {
     };
 
     return (
-        <button onClick={handleSubmit}>Logout</button>
+        <button className='w-100 p-1 m-2' onClick={handleSubmit}>Logout</button>
     );
 };
 
