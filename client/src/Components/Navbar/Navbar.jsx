@@ -1,7 +1,7 @@
 import Logout from "../LogoutBtn/Logout";
 import "./Navbar.css"
 
-function Navbar() {
+const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg">
             <div className="container-fluid">
