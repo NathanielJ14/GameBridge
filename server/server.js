@@ -22,7 +22,7 @@ const db = mysql.createConnection({
     database: process.env.DB_DATABASE
 });
 
-// // Register User
+// Register User
 app.post('/register', (req, res) => {
     const sql = 'INSERT INTO users (`userName`, `email`, `password`) VALUES (?)';
     const { userName, email, password } = req.body;
@@ -47,6 +47,25 @@ app.post('/register', (req, res) => {
     });
 });
 
+// Login User
+app.post('/login', (req, res) => {
+    const sql = `SELECT * FROM users WHERE email = ?`;
+    db.query(sql, [req.body.email], (err, data) => {
+        if (err) return res.json({ Error: 'Login error in server' });
+        if (data.length > 0) {
+            bcrypt.compare(req.body.password.toString(), data[0].password, (err, response) => {
+                if (err) return res.json({ Error: 'Password compare error' });
+                if (response) {
+                    return res.json({ Status: 'Success' });
+                } else {
+                    return res.json({ Error: 'Not the right password' });
+                }
+            });
+        } else {
+            return res.json({ Error: 'No email existed' });
+        }
+    })
+})
 
 
 

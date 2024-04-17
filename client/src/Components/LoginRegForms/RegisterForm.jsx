@@ -11,11 +11,20 @@ const RegisterForm = () => {
         confirmPassword: ''
     })
 
+    const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
+
         axios.post('http://localhost:3001/register', values)
-            .then(res => console.log(res))
+            .then(res => {
+                if (res.data.Status === 'Success') {
+                    navigate('/dashboard');
+                } else {
+                    alert('Error');
+                }
+            })
             .then(err => console.log(err));
     }
 
