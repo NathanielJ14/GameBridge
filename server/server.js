@@ -11,7 +11,11 @@ const salt = 10;
 const app = express();
 const port = 3001;
 app.use(express.json());
-app.use(cors({}));
+app.use(cors({
+    origin: ['http://localhost:5173'],
+    methods: ['POST', 'GET'],
+    credentials: true
+}));
 app.use(cookieParser());
 
 // Connect to the MySQL Database
@@ -41,6 +45,9 @@ app.post('/register', (req, res) => {
                 return res.status(500).json({ Error: 'Error inserting data' });
             }
 
+            const userName = data[0].userName;
+            const token = jwt.sign({ userName }, 'jwt-secret-key', { expiresIn: '1d' });
+            res.cookie(`token`, token);
             console.log('User registered successfully:', result.insertId);
             return res.status(200).json({ Status: 'Success' });
         });
@@ -56,6 +63,9 @@ app.post('/login', (req, res) => {
             bcrypt.compare(req.body.password.toString(), data[0].password, (err, response) => {
                 if (err) return res.json({ Error: 'Password compare error' });
                 if (response) {
+                    const userName = data[0].userName;
+                    const token = jwt.sign({ userName }, 'jwt-secret-key', { expiresIn: '1d' });
+                    res.cookie(`token`, token);
                     return res.json({ Status: 'Success' });
                 } else {
                     return res.json({ Error: 'Not the right password' });
@@ -65,6 +75,12 @@ app.post('/login', (req, res) => {
             return res.json({ Error: 'No email existed' });
         }
     })
+})
+
+// Logout User
+app.get('/logout', (req, res) => {
+    res.clearCookie(`token`);
+    return res.json({ Status: 'Success' });
 })
 
 

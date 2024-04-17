@@ -2,7 +2,6 @@ import React from 'react';
 import Navbar from '../../Components/Navbar/Navbar';
 import "./dashboard.css"
 
-
 const Dashboard = () => {
     return (
         <div className='dashboard'>
