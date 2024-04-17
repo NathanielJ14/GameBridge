@@ -1,32 +1,19 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Logout = () => {
     const navigate = useNavigate();
 
-    const handleSubmit = async () => {
-        try {
-            // Send a request to the server to clear the session
-            const response = await fetch('http://localhost:3001/api/logout', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' }
-            });
-
-            if (response.ok) {
-                // Clear session on the client side
-                sessionStorage.clear();
-                // Redirect user to the root URL
+    const handleDelete = () => {
+        axios.get('http://localhost:3001/logout')
+            .then(res => {
                 navigate('/');
-            } else {
-                console.error('Logout failed');
-            }
-        } catch (error) {
-            console.error('Logout failed:', error);
-        }
+            }).catch(err => console.log(err));
     };
 
     return (
-        <button className='w-100 p-1 m-2' onClick={handleSubmit}>Logout</button>
+        <button className='w-100 p-1 m-2' onClick={handleDelete}>Logout</button>
     );
 };
 
