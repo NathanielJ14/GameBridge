@@ -83,8 +83,6 @@ app.get('/logout', (req, res) => {
     return res.json({ Status: 'Success' });
 })
 
-
-
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
