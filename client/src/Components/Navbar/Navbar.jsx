@@ -1,5 +1,5 @@
 import Logout from "../LogoutBtn/Logout";
-import "./Navbar.css"
+import "./Navbar.css";
 
 const Navbar = () => {
     return (
