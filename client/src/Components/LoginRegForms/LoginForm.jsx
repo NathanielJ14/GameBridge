@@ -9,6 +9,7 @@ const LoginForm = () => {
         password: ''
     })
 
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
     axios.defaults.withCredentials = true;
 
@@ -24,7 +25,13 @@ const LoginForm = () => {
                     alert(res.data.Error);
                 }
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                if (err.response && err.response.status === 400) {
+                    setError(err.response.data.Error); // Set error message from server response
+                } else {
+                    console.log(err);
+                }
+            });
     }
 
     return (
@@ -33,6 +40,7 @@ const LoginForm = () => {
                 <h2 className="text-center mt-2">Login</h2>
                 <div className="card-body">
                     <form onSubmit={handleSubmit}>
+                        {error && <div className="alert alert-danger">{error}</div>}
                         <div className="mb-3">
                             <input type="email" className="form-control" name="email" required placeholder="Email" onChange={e => setValues({ ...values, email: e.target.value })} />
                         </div>

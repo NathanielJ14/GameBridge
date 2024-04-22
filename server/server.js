@@ -29,36 +29,50 @@ const db = mysql.createConnection({
 
 // Register User
 app.post('/register', (req, res) => {
-    const { userName, email, password } = req.body;
-    // Create sql query to insert user data in db
-    const sql = 'INSERT INTO users (`userName`, `email`, `password`) VALUES (?)';
+    const { userName, email, password, confirmPassword } = req.body;
 
-    // Hash the password
-    bcrypt.hash(password.toString(), salt, (err, hash) => {
+    // Check if the passwords match
+    if (password !== confirmPassword) {
+        return res.status(400).json({ Error: 'Passwords do not match' });
+    }
+
+    // Check if the email already exists in the database
+    const checkEmailQuery = 'SELECT * FROM users WHERE email = ?';
+    db.query(checkEmailQuery, [email], (err, result) => {
         if (err) {
-            console.error('Error hashing password:', err);
-            return res.status(500).json({ Error: 'Error hashing password' });
+            console.error('Error checking email:', err);
+            return res.status(500).json({ Error: 'Error checking email' });
         }
 
-        // Save user info as values
-        const values = [userName, email, hash];
+        if (result.length > 0) {
+            // Email already exists in the database
+            return res.status(400).json({ Error: 'Email already in use' });
+        }
 
-        // Push user info to db using sql query
-        db.query(sql, [values], (err, result) => {
+        // Email is unique, proceed to hash password and register user
+        bcrypt.hash(password.toString(), salt, (err, hash) => {
             if (err) {
-                console.error('Error inserting data:', err);
-                return res.status(500).json({ Error: 'Error inserting data' });
+                console.error('Error hashing password:', err);
+                return res.status(500).json({ Error: 'Error hashing password' });
             }
 
-            // User registered into db
-            console.log('User registered successfully:', result.insertId);
+            const values = [userName, email, hash];
+            const insertUserQuery = 'INSERT INTO users (`userName`, `email`, `password`) VALUES (?)';
 
-            // Generate JWT token
-            const token = jwt.sign({ email }, 'jwt-secret-key', { expiresIn: '1d' });
-            // Set token in cookie
-            res.cookie(`token`, token);
+            db.query(insertUserQuery, [values], (err, result) => {
+                if (err) {
+                    console.error('Error inserting data:', err);
+                    return res.status(500).json({ Error: 'Error inserting data' });
+                }
 
-            return res.status(200).json({ Status: 'Success' });
+                console.log('User registered successfully:', result.insertId);
+
+                // Generate JWT token
+                const token = jwt.sign({ email }, 'jwt-secret-key', { expiresIn: '1d' });
+                res.cookie(`token`, token);
+
+                return res.status(200).json({ Status: 'Success' });
+            });
         });
     });
 });
@@ -82,11 +96,11 @@ app.post('/login', (req, res) => {
                     res.cookie(`token`, token);
                     return res.json({ Status: 'Success' });
                 } else {
-                    return res.json({ Error: 'Not the right password' });
+                    return res.status(400).json({ Error: 'Incorrect password' });
                 }
             });
         } else {
-            return res.json({ Error: 'No email existed' });
+            return res.status(400).json({ Error: 'User email is not registered' });
         }
     })
 })

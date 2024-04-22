@@ -11,6 +11,7 @@ const RegisterForm = () => {
         confirmPassword: ''
     })
 
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
     axios.defaults.withCredentials = true;
 
@@ -26,7 +27,13 @@ const RegisterForm = () => {
                     alert(res.data.Error);
                 }
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                if (err.response && err.response.status === 400) {
+                    setError(err.response.data.Error); // Set error message from server response
+                } else {
+                    console.log(err);
+                }
+            });
     }
 
     return (
@@ -35,6 +42,7 @@ const RegisterForm = () => {
                 <h2 className="text-center mt-2">Register</h2>
                 <div className="card-body">
                     <form onSubmit={handleSubmit}>
+                        {error && <div className="alert alert-danger">{error}</div>}
                         <div className="mb-3">
                             <input type="text" className="form-control" name="userName" required placeholder="Username" onChange={e => setValues({ ...values, userName: e.target.value })} />
                         </div>
