@@ -1,7 +1,7 @@
-import "./LoginReg.css";
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import "./LoginReg.css";
 
 const RegisterForm = () => {
     const [values, setValues] = useState({
@@ -14,19 +14,19 @@ const RegisterForm = () => {
     const navigate = useNavigate();
     axios.defaults.withCredentials = true;
 
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
         axios.post('http://localhost:3001/register', values)
             .then(res => {
                 if (res.data.Status === 'Success') {
-                    navigate('/dashboard');
+                    localStorage.setItem('token', res.data.token); // Store token in localStorage
+                    navigate('/dashboard'); // Navigate to dashboard on success
                 } else {
-                    alert('Error');
+                    alert(res.data.Error);
                 }
             })
-            .then(err => console.log(err));
+            .catch(err => console.log(err));
     }
 
     return (

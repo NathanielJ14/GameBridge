@@ -29,27 +29,35 @@ const db = mysql.createConnection({
 
 // Register User
 app.post('/register', (req, res) => {
-    const sql = 'INSERT INTO users (`userName`, `email`, `password`) VALUES (?)';
     const { userName, email, password } = req.body;
+    // Create sql query to insert user data in db
+    const sql = 'INSERT INTO users (`userName`, `email`, `password`) VALUES (?)';
 
+    // Hash the password
     bcrypt.hash(password.toString(), salt, (err, hash) => {
         if (err) {
             console.error('Error hashing password:', err);
             return res.status(500).json({ Error: 'Error hashing password' });
         }
 
+        // Save user info as values
         const values = [userName, email, hash];
 
+        // Push user info to db using sql query
         db.query(sql, [values], (err, result) => {
             if (err) {
                 console.error('Error inserting data:', err);
                 return res.status(500).json({ Error: 'Error inserting data' });
             }
 
-            const userName = data[0].userName;
-            const token = jwt.sign({ userName }, 'jwt-secret-key', { expiresIn: '1d' });
-            res.cookie(`token`, token);
+            // User registered into db
             console.log('User registered successfully:', result.insertId);
+
+            // Generate JWT token
+            const token = jwt.sign({ userName }, 'jwt-secret-key', { expiresIn: '1d' });
+            // Set token in cookie
+            res.cookie(`token`, token);
+
             return res.status(200).json({ Status: 'Success' });
         });
     });
@@ -57,12 +65,17 @@ app.post('/register', (req, res) => {
 
 // Login User
 app.post('/login', (req, res) => {
+    // Create sql query to find user
     const sql = `SELECT * FROM users WHERE email = ?`;
+    // Use sql query to find user info in db
     db.query(sql, [req.body.email], (err, data) => {
         if (err) return res.json({ Error: 'Login error in server' });
+
+        // Compare password to hashed password
         if (data.length > 0) {
             bcrypt.compare(req.body.password.toString(), data[0].password, (err, response) => {
                 if (err) return res.json({ Error: 'Password compare error' });
+                // On success generate token and set cookie
                 if (response) {
                     const userName = data[0].userName;
                     const token = jwt.sign({ userName }, 'jwt-secret-key', { expiresIn: '1d' });
@@ -80,6 +93,7 @@ app.post('/login', (req, res) => {
 
 // Logout User
 app.get('/logout', (req, res) => {
+    // Clears cookies
     res.clearCookie(`token`);
     return res.json({ Status: 'Success' });
 })
@@ -99,10 +113,8 @@ const verifyToken = (req, res, next) => {
     });
 };
 
-// Protected route example
+// Protected route
 app.get('/dashboard', verifyToken, (req, res) => {
-    // If token is verified, the user is authenticated
-    // You can access req.userName to get the authenticated user's username
     res.status(200).json({ message: 'Access granted to dashboard' });
 });
 
