@@ -54,7 +54,7 @@ app.post('/register', (req, res) => {
             console.log('User registered successfully:', result.insertId);
 
             // Generate JWT token
-            const token = jwt.sign({ userName }, 'jwt-secret-key', { expiresIn: '1d' });
+            const token = jwt.sign({ email }, 'jwt-secret-key', { expiresIn: '1d' });
             // Set token in cookie
             res.cookie(`token`, token);
 
@@ -77,8 +77,8 @@ app.post('/login', (req, res) => {
                 if (err) return res.json({ Error: 'Password compare error' });
                 // On success generate token and set cookie
                 if (response) {
-                    const userName = data[0].userName;
-                    const token = jwt.sign({ userName }, 'jwt-secret-key', { expiresIn: '1d' });
+                    const email = data[0].email;
+                    const token = jwt.sign({ email }, 'jwt-secret-key', { expiresIn: '1d' });
                     res.cookie(`token`, token);
                     return res.json({ Status: 'Success' });
                 } else {
@@ -104,18 +104,34 @@ const verifyToken = (req, res, next) => {
     if (!token) {
         return res.status(401).json({ Error: 'Unauthorized: No token provided' });
     }
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    jwt.verify(token, 'jwt-secret-key', (err, decoded) => {
         if (err) {
             return res.status(401).json({ Error: 'Unauthorized: Invalid token' });
         }
-        req.userName = decoded.userName;
+        req.email = decoded.email;
         next(); // Proceed to the next middleware or route handler
     });
 };
 
 // Protected route
 app.get('/dashboard', verifyToken, (req, res) => {
-    res.status(200).json({ message: 'Access granted to dashboard' });
+    const userEmail = req.email; // Get the email from the decoded JWT token
+
+    // Fetch user information based on the email
+    const sql = 'SELECT userName, email FROM users WHERE email = ?';
+    db.query(sql, [userEmail], (err, result) => {
+        if (err) {
+            console.error('Error fetching user info:', err);
+            return res.status(500).json({ Error: 'Error fetching user info' });
+        }
+
+        if (result.length === 0) {
+            return res.status(404).json({ Error: 'User not found' });
+        }
+
+        const userData = result[0];
+        res.status(200).json(userData); // Respond with user data (username, email)
+    });
 });
 
 // Start the server
