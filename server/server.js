@@ -84,6 +84,28 @@ app.get('/logout', (req, res) => {
     return res.json({ Status: 'Success' });
 })
 
+// Middleware to verify JWT token
+const verifyToken = (req, res, next) => {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.status(401).json({ Error: 'Unauthorized: No token provided' });
+    }
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ Error: 'Unauthorized: Invalid token' });
+        }
+        req.userName = decoded.userName;
+        next(); // Proceed to the next middleware or route handler
+    });
+};
+
+// Protected route example
+app.get('/dashboard', verifyToken, (req, res) => {
+    // If token is verified, the user is authenticated
+    // You can access req.userName to get the authenticated user's username
+    res.status(200).json({ message: 'Access granted to dashboard' });
+});
+
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

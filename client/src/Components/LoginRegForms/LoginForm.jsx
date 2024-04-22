@@ -18,12 +18,13 @@ const LoginForm = () => {
         axios.post('http://localhost:3001/login', values)
             .then(res => {
                 if (res.data.Status === 'Success') {
+                    localStorage.setItem('token', res.data.token); // Store token in localStorage
                     navigate('/dashboard');
                 } else {
                     alert(res.data.Error);
                 }
             })
-            .then(err => console.log(err));
+            .catch(err => console.log(err));
     }
 
     return (
