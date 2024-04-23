@@ -127,7 +127,7 @@ const verifyToken = (req, res, next) => {
     });
 };
 
-// Protected route
+// Protected routes
 app.get('/dashboard', verifyToken, (req, res) => {
     const userEmail = req.email; // Get the email from the decoded JWT token
 
@@ -147,6 +147,28 @@ app.get('/dashboard', verifyToken, (req, res) => {
         res.status(200).json(userData); // Respond with user data (username, email)
     });
 });
+
+// Protected routes
+app.get('/account', verifyToken, (req, res) => {
+    const userEmail = req.email; // Get the email from the decoded JWT token
+
+    // Fetch user information based on the email
+    const sql = 'SELECT userName, email FROM users WHERE email = ?';
+    db.query(sql, [userEmail], (err, result) => {
+        if (err) {
+            console.error('Error fetching user info:', err);
+            return res.status(500).json({ Error: 'Error fetching user info' });
+        }
+
+        if (result.length === 0) {
+            return res.status(404).json({ Error: 'User not found' });
+        }
+
+        const userData = result[0];
+        res.status(200).json(userData); // Respond with user data (username, email)
+    });
+});
+
 
 // Start the server
 app.listen(port, () => {
