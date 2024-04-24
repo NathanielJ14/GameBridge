@@ -68,7 +68,8 @@ app.post('/register', (req, res) => {
                 console.log('User registered successfully:', result.insertId);
 
                 // Generate JWT token
-                const token = jwt.sign({ email }, 'jwt-secret-key', { expiresIn: '1d' });
+                const userId = result.insertId;
+                const token = jwt.sign({ userId }, 'jwt-secret-key', { expiresIn: '1d' });
                 res.cookie(`token`, token);
 
                 return res.status(200).json({ Status: 'Success' });
@@ -91,8 +92,8 @@ app.post('/login', (req, res) => {
                 if (err) return res.json({ Error: 'Password compare error' });
                 // On success generate token and set cookie
                 if (response) {
-                    const email = data[0].email;
-                    const token = jwt.sign({ email }, 'jwt-secret-key', { expiresIn: '1d' });
+                    const userId = data[0].id
+                    const token = jwt.sign({ userId }, 'jwt-secret-key', { expiresIn: '1d' });
                     res.cookie(`token`, token);
                     return res.json({ Status: 'Success' });
                 } else {
@@ -122,18 +123,18 @@ const verifyToken = (req, res, next) => {
         if (err) {
             return res.status(401).json({ Error: 'Unauthorized: Invalid token' });
         }
-        req.email = decoded.email;
+        req.userId = decoded.userId;
         next(); // Proceed to the next middleware or route handler
     });
 };
 
 // Protected routes
 app.get('/dashboard', verifyToken, (req, res) => {
-    const userEmail = req.email; // Get the email from the decoded JWT token
+    const userId = req.userId; // Get the userId from the decoded JWT token
 
-    // Fetch user information based on the email
-    const sql = 'SELECT userName, email FROM users WHERE email = ?';
-    db.query(sql, [userEmail], (err, result) => {
+    // Fetch user information based on the userId
+    const sql = 'SELECT userName, email FROM users WHERE id = ?';
+    db.query(sql, [userId], (err, result) => {
         if (err) {
             console.error('Error fetching user info:', err);
             return res.status(500).json({ Error: 'Error fetching user info' });
@@ -150,11 +151,11 @@ app.get('/dashboard', verifyToken, (req, res) => {
 
 // Protected routes
 app.get('/account', verifyToken, (req, res) => {
-    const userEmail = req.email; // Get the email from the decoded JWT token
+    const userId = req.userId; // Get the userId from the decoded JWT token
 
-    // Fetch user information based on the email
-    const sql = 'SELECT userName, email FROM users WHERE email = ?';
-    db.query(sql, [userEmail], (err, result) => {
+    // Fetch user information based on the userId
+    const sql = 'SELECT userName, email FROM users WHERE id = ?';
+    db.query(sql, [userId], (err, result) => {
         if (err) {
             console.error('Error fetching user info:', err);
             return res.status(500).json({ Error: 'Error fetching user info' });
