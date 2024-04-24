@@ -1,7 +1,10 @@
 import Logout from "../LogoutBtn/Logout";
 import "./Navbar.css";
+import { useParams, Link } from 'react-router-dom';
 
 const Navbar = () => {
+    const { id } = useParams();
+
     return (
         <nav className="navbar navbar-expand-lg">
             <div className="container-fluid">
@@ -11,7 +14,7 @@ const Navbar = () => {
                 </button>
                 <div className="collapse navbar-collapse d-flex justify-content-between" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
-                        <a className="nav-link active" href="/dashboard">Dashboard</a>
+                        <Link to={`/dashboard/${id}`} className="nav-link">Dashboard</Link>
                         <a className="nav-link" href="/account">Link Accounts</a>
                     </div>
                     <div className="">

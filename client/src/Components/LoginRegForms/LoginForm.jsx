@@ -20,7 +20,8 @@ const LoginForm = () => {
             .then(res => {
                 if (res.data.Status === 'Success') {
                     localStorage.setItem('token', res.data.token); // Store token in localStorage
-                    navigate('/dashboard'); // Navigate to dashboard on success
+                    const userId = res.data.userId;
+                    navigate(`/dashboard/${userId}`); // Navigate to dashboard on success
                 } else {
                     alert(res.data.Error);
                 }

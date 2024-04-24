@@ -72,7 +72,7 @@ app.post('/register', (req, res) => {
                 const token = jwt.sign({ userId }, 'jwt-secret-key', { expiresIn: '1d' });
                 res.cookie(`token`, token);
 
-                return res.status(200).json({ Status: 'Success' });
+                return res.status(200).json({ Status: 'Success', userId });
             });
         });
     });
@@ -95,7 +95,7 @@ app.post('/login', (req, res) => {
                     const userId = data[0].id
                     const token = jwt.sign({ userId }, 'jwt-secret-key', { expiresIn: '1d' });
                     res.cookie(`token`, token);
-                    return res.json({ Status: 'Success' });
+                    return res.json({ Status: 'Success', userId });
                 } else {
                     return res.status(400).json({ Error: 'Incorrect password' });
                 }
@@ -129,11 +129,11 @@ const verifyToken = (req, res, next) => {
 };
 
 // Protected routes
-app.get('/dashboard', verifyToken, (req, res) => {
-    const userId = req.userId; // Get the userId from the decoded JWT token
+app.get('/dashboard/:id', verifyToken, (req, res) => {
+    const userId = req.userId; // Get the userId from the url
 
     // Fetch user information based on the userId
-    const sql = 'SELECT userName, email FROM users WHERE id = ?';
+    const sql = 'SELECT * FROM users WHERE id = ?';
     db.query(sql, [userId], (err, result) => {
         if (err) {
             console.error('Error fetching user info:', err);
