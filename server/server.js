@@ -29,6 +29,7 @@ const db = mysql.createConnection({
 
 // Register User
 app.post('/register', (req, res) => {
+    // Get user inputs from form
     const { userName, email, password, confirmPassword } = req.body;
 
     // Check if the passwords match
@@ -67,11 +68,12 @@ app.post('/register', (req, res) => {
 
                 console.log('User registered successfully:', result.insertId);
 
-                // Generate JWT token
+                // Generate JWT token and cookie using user id
                 const userId = result.insertId;
                 const token = jwt.sign({ userId }, 'jwt-secret-key', { expiresIn: '1d' });
                 res.cookie(`token`, token);
 
+                // Return userId and success to client
                 return res.status(200).json({ Status: 'Success', userId });
             });
         });
@@ -90,17 +92,20 @@ app.post('/login', (req, res) => {
         if (data.length > 0) {
             bcrypt.compare(req.body.password.toString(), data[0].password, (err, response) => {
                 if (err) return res.json({ Error: 'Password compare error' });
-                // On success generate token and set cookie
+                // On success generate token and set cookie using user id
                 if (response) {
                     const userId = data[0].id
                     const token = jwt.sign({ userId }, 'jwt-secret-key', { expiresIn: '1d' });
                     res.cookie(`token`, token);
+                    // Return user id on success to client
                     return res.json({ Status: 'Success', userId });
                 } else {
+                    // Password is incorrect
                     return res.status(400).json({ Error: 'Incorrect password' });
                 }
             });
         } else {
+            // Email is not registered in db
             return res.status(400).json({ Error: 'User email is not registered' });
         }
     })
@@ -113,8 +118,9 @@ app.get('/logout', (req, res) => {
     return res.json({ Status: 'Success' });
 })
 
-// Middleware to verify JWT token
+// Auth middleware to verify user from token
 const verifyToken = (req, res, next) => {
+    //Get token from cookie
     const token = req.cookies.token;
     if (!token) {
         return res.status(401).json({ Error: 'Unauthorized: No token provided' });
@@ -124,13 +130,15 @@ const verifyToken = (req, res, next) => {
             return res.status(401).json({ Error: 'Unauthorized: Invalid token' });
         }
         req.userId = decoded.userId;
-        next(); // Proceed to the next middleware or route handler
+        // Proceed to the next middleware or route handler
+        next();
     });
 };
 
-// Protected routes
+// Protected route for user dashboard
 app.get('/dashboard/:id', verifyToken, (req, res) => {
-    const userId = req.userId; // Get the userId from the url
+    // Get the userId
+    const userId = req.userId;
 
     // Fetch user information based on the userId
     const sql = 'SELECT * FROM users WHERE id = ?';
@@ -144,12 +152,14 @@ app.get('/dashboard/:id', verifyToken, (req, res) => {
             return res.status(404).json({ Error: 'User not found' });
         }
 
+        // Set userdata to data found in db
         const userData = result[0];
-        res.status(200).json(userData); // Respond with user data (username, email)
+        // Respond with user data 
+        res.status(200).json(userData);
     });
 });
 
-// Protected routes
+// Protected route for user account
 app.get('/account', verifyToken, (req, res) => {
     const userId = req.userId; // Get the userId from the decoded JWT token
 
