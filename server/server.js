@@ -155,16 +155,18 @@ app.get('/dashboard/:id', verifyToken, (req, res) => {
         // Set userdata to data found in db
         const userData = result[0];
         // Respond with user data 
-        res.status(200).json(userData);
+
+        return res.status(200).json(userData);
     });
 });
 
 // Protected route for user account
-app.get('/account', verifyToken, (req, res) => {
-    const userId = req.userId; // Get the userId from the decoded JWT token
+app.get('/account/:id', verifyToken, (req, res) => {
+    // Get the userId
+    const userId = req.userId;
 
     // Fetch user information based on the userId
-    const sql = 'SELECT userName, email FROM users WHERE id = ?';
+    const sql = 'SELECT * FROM users WHERE id = ?';
     db.query(sql, [userId], (err, result) => {
         if (err) {
             console.error('Error fetching user info:', err);
@@ -175,8 +177,10 @@ app.get('/account', verifyToken, (req, res) => {
             return res.status(404).json({ Error: 'User not found' });
         }
 
+        // Set userdata to data found in db
         const userData = result[0];
-        res.status(200).json(userData); // Respond with user data (username, email)
+        // Respond with user data 
+        res.status(200).json(userData);
     });
 });
 

@@ -15,7 +15,7 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse d-flex justify-content-between" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
                         <Link to={`/dashboard/${id}`} className="nav-link">Dashboard</Link>
-                        <a className="nav-link" href="/account">Link Accounts</a>
+                        <Link to={`/account/${id}`} className="nav-link">Link an Account</Link>
                     </div>
                     <div className="">
                         <Logout />
