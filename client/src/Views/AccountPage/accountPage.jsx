@@ -19,8 +19,12 @@ const AccountPage = () => {
             // Fetch user data from the server
             axios.get(`http://localhost:3001/account/${id}`, { withCredentials: true })
                 .then(res => {
-                    setUserData(res.data); // Set user data received from the server
-                    setLoading(false);
+                    if (res.data.id === parseInt(id, 10)) {
+                        setUserData(res.data);
+                        setLoading(false);
+                    } else {
+                        navigate(`/account/${res.data.id}`);
+                    }
                 })
                 .catch(err => {
                     console.error('Error fetching user data:', err);
