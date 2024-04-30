@@ -3,6 +3,7 @@ import Navbar from '../../Components/Navbar/Navbar';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import AccountForm from '../../Components/AccountForm/AccountForm';
 
 const AccountPage = () => {
     const navigate = useNavigate();
@@ -41,8 +42,7 @@ const AccountPage = () => {
         <div>
             <Navbar />
             <div>
-                <h2>Link Your Accounts</h2>
-                <p>Welcome to your Settings {userData.userName}</p>
+                <AccountForm />
             </div>
         </div>
     );
