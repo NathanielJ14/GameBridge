@@ -1,4 +1,5 @@
 import React from 'react';
+import "./account.css";
 import Navbar from '../../Components/Navbar/Navbar';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -39,11 +40,9 @@ const AccountPage = () => {
     }
 
     return (
-        <div>
+        <div className='accountPage'>
             <Navbar />
-            <div>
-                <AccountForm />
-            </div>
+            <AccountForm />
         </div>
     );
 };

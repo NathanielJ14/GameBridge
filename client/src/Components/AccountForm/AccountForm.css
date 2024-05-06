@@ -1,0 +1,43 @@
+.accountForm {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.accountHeader {
+    font-size: 3.25em;
+    color: #ffffff;
+    text-shadow: 0 0 12px #af6bff;
+    /* Neon shadow effect */
+    animation: flicker 0.6s infinite alternate;
+}
+
+@keyframes flicker {
+    0% {
+        opacity: 0.8;
+        /* Initial opacity (less bright) */
+        text-shadow: 0 0 10px #af6bff;
+        /* Neon shadow effect */
+    }
+
+    50% {
+        opacity: 1;
+        /* Full opacity (brighter) */
+        text-shadow: 0 0 15px #af6bff;
+        /* Slightly larger shadow */
+    }
+
+    100% {
+        opacity: 0.9;
+        /* Slightly reduced opacity */
+        text-shadow: 0 0 12px #af6bff;
+        /* Intermediate shadow size */
+    }
+}
+
+.keyBtn {
+    width: 30%;
+}
+
+.keyLabel {
+    font-size: 1.5em;
+}
