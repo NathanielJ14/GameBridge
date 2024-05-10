@@ -166,7 +166,8 @@ app.get('/account/:id', verifyToken, (req, res) => {
     const userId = req.userId;
 
     // Fetch user information based on the userId
-    const sql = 'SELECT * FROM users WHERE id = ?';
+    const sql = 'SELECT * FROM users JOIN accounts ON users.id = accounts.userId WHERE users.id = ?';
+
     db.query(sql, [userId], (err, result) => {
         if (err) {
             console.error('Error fetching user info:', err);
@@ -181,6 +182,50 @@ app.get('/account/:id', verifyToken, (req, res) => {
         const userData = result[0];
         // Respond with user data 
         res.status(200).json(userData);
+    });
+});
+
+// Update or add user account
+app.post('/account/:id', verifyToken, (req, res) => {
+    // Get the userId
+    const userId = req.userId;
+
+    // Extract account data from request body
+    const { steamKey, discordKey } = req.body;
+
+    // Check if the account already exists for the user
+    const checkAccountQuery = 'SELECT * FROM accounts WHERE userId = ?';
+    db.query(checkAccountQuery, [userId], (err, result) => {
+        if (err) {
+            console.error('Error checking account:', err);
+            return res.status(500).json({ Error: 'Error checking account' });
+        }
+
+        if (result.length === 0) {
+            // If account does not exist, insert new record
+            const insertAccountQuery = 'INSERT INTO accounts (userId, steamKey, discordKey) VALUES (?, ?, ?)';
+            db.query(insertAccountQuery, [userId, steamKey, discordKey], (err, result) => {
+                if (err) {
+                    console.error('Error inserting account data:', err);
+                    return res.status(500).json({ Error: 'Error inserting account data' });
+                }
+
+                console.log('Account data inserted successfully');
+                return res.status(200).json({ Status: 'Success' });
+            });
+        } else {
+            // If account exists, update existing record
+            const updateAccountQuery = 'UPDATE accounts SET steamKey = ?, discordKey = ? WHERE userId = ?';
+            db.query(updateAccountQuery, [steamKey, discordKey, userId], (err, result) => {
+                if (err) {
+                    console.error('Error updating account data:', err);
+                    return res.status(500).json({ Error: 'Error updating account data' });
+                }
+
+                console.log('Account data updated successfully');
+                return res.status(200).json({ Status: 'Success' });
+            });
+        }
     });
 });
 
