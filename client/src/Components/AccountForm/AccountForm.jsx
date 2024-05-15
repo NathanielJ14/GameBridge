@@ -18,7 +18,7 @@ const AccountForm = () => {
             })
             .catch(error => console.error("Error fetching account data:", error));
     };
-
+    
     useEffect(() => {
         fetchAccountData();
     }, [id]); // Fetch data when userId changes

@@ -161,28 +161,45 @@ app.get('/dashboard/:id', verifyToken, (req, res) => {
 });
 
 // Protected route for user account
-app.get('/account/:id', verifyToken, (req, res) => {
-    // Get the userId
-    const userId = req.userId;
+app.get('/account/:id', verifyToken, async (req, res) => {
+    try {
+        // Get the userId
+        const userId = req.userId;
 
-    // Fetch user information based on the userId
-    const sql = 'SELECT * FROM users JOIN accounts ON users.id = accounts.userId WHERE users.id = ?';
+        // Try querying accounts table first
+        let sql = 'SELECT * FROM accounts WHERE userId = ?';
+        db.query(sql, [userId], async (err, result) => {
+            if (err) {
+                console.error('Error fetching accounts info:', err);
+                throw new Error('Error fetching accounts info');
+            }
 
-    db.query(sql, [userId], (err, result) => {
-        if (err) {
-            console.error('Error fetching user info:', err);
-            return res.status(500).json({ Error: 'Error fetching user info' });
-        }
+            if (result.length === 0) {
+                // If no info found in accounts table, fallback to users table
+                sql = 'SELECT * FROM users WHERE id = ?';
+                db.query(sql, [userId], (err, userResult) => {
+                    if (err) {
+                        console.error('Error fetching user info:', err);
+                        throw new Error('Error fetching user info');
+                    }
+                    
+                    if (userResult.length === 0) {
+                        return res.status(404).json({ Error: 'User not found' });
+                    }
 
-        if (result.length === 0) {
-            return res.status(404).json({ Error: 'User not found' });
-        }
-
-        // Set userdata to data found in db
-        const userData = result[0];
-        // Respond with user data 
-        res.status(200).json(userData);
-    });
+                    const userData = userResult[0];
+                    res.status(200).json(userData);
+                });
+            } else {
+                // If data found in accounts table, return the account data
+                const accountData = result[0];
+                res.status(200).json(accountData);
+            }
+        });
+    } catch (error) {
+        console.error('Error:', error);
+        return res.status(500).json({ Error: 'Internal Server Error' });
+    }
 });
 
 // Update or add user account
