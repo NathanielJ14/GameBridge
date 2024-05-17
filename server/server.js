@@ -148,6 +148,7 @@ app.get('/dashboard/:id', verifyToken, (req, res) => {
             return res.status(500).json({ Error: 'Error fetching user info' });
         }
 
+        // If user isnt found throw error
         if (result.length === 0) {
             return res.status(404).json({ Error: 'User not found' });
         }
