@@ -42,7 +42,7 @@ const Dashboard = () => {
         <div className='dashboard'>
             <Navbar />
             <div>
-                <h2>Dashboard</h2>
+                <h2 className='text-center mt-4 mb-5 accountHeader'>Dashboard</h2>
                 <p>Welcome to your dashboard!</p>
                 <h3>hello {userData.userName}</h3>
                 <h3>email: {userData.email}</h3>
