@@ -4,6 +4,7 @@ import "./dashboard.css";
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import FriendsList from '../../Components/FriendsList/FriendsList';
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -44,7 +45,7 @@ const Dashboard = () => {
             <div>
                 <h2 className='text-center mt-4 mb-5 accountHeader'>{userData.userName}'s Dashboard</h2>
                 <p>Welcome to your dashboard!</p>
-                <h3>email: {userData.email}</h3>
+                <FriendsList/>
             </div>
         </div>
     );
