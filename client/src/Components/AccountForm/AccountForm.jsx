@@ -14,7 +14,7 @@ const AccountForm = () => {
             .then(response => {
                 const { steamKey, steamId } = response.data;
                 setSteamKey(steamKey || "");
-                setDiscordKey(steamId || "");
+                setSteamId(steamId || "");
             })
             .catch(error => console.error("Error fetching account data:", error));
     };
@@ -39,20 +39,36 @@ const AccountForm = () => {
     };
 
     return (
-        <form className="accountForm text-center" onSubmit={handleSubmit}>
-            <h2 className="text-center mt-4 mb-5 accountHeader">Connect your accounts</h2>
-            <div className="row">
-                <div className="col-md-6 mb-3">
-                    <label htmlFor="steamKey" className="form-label keyLabel">Steam Key</label>
-                    <input type="text" className="form-control" id="steamKey" placeholder="Your Steam API Key" value={steamKey} onChange={(e) => setSteamKey(e.target.value)} />
+        <form className="text-center" onSubmit={handleSubmit}>
+            <h2 className="text-center mt-4 mb-3 neonHeader">Your Accounts</h2>
+            <div className="d-flex justify-content-center">
+                <div className="border border-secondary rounded p-4 m-4">
+                    <div className="mb-4">
+                        <h2 className="mb-4 accountHeaders">Connect your steam account</h2>
+                        <label htmlFor="steamKey" className="form-label keyLabel">Steam Key</label>
+                        <input type="text" className="form-control" id="steamKey" placeholder="Your Steam API Key" value={steamKey} onChange={(e) => setSteamKey(e.target.value)} />
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="steamId" className="form-label keyLabel">Steam Id</label>
+                        <input type="text" className="form-control" id="steamId" placeholder="Your Steam Id" value={steamId} onChange={(e) => setSteamId(e.target.value)} />
+                    </div>
                 </div>
-                <div className="col-md-6 mb-3">
-                    <label htmlFor="steamId" className="form-label keyLabel">Steam Id</label>
-                    <input type="text" className="form-control" id="steamId" placeholder="Your Steam Id" value={steamId} onChange={(e) => setSteamId(e.target.value)} />
+
+                <div className="border border-secondary rounded p-4 m-4">
+                    <div className="mb-4">
+                        <h2 className="mb-4 accountHeaders">Connect your discord account</h2>
+                        <label htmlFor="steamKey" className="form-label keyLabel">Steam Key</label>
+                        <input type="text" className="form-control" id="steamKey" placeholder="Your Steam API Key" value={steamKey} onChange={(e) => setSteamKey(e.target.value)} />
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="steamId" className="form-label keyLabel">Steam Id</label>
+                        <input type="text" className="form-control" id="steamId" placeholder="Your Steam Id" value={steamId} onChange={(e) => setSteamId(e.target.value)} />
+                    </div>
                 </div>
             </div>
+            
             <div className="text-center mt-3">
-                <button type="submit" className="btn keyBtn">Save Keys</button>
+                <button type="submit" className="btn btn-lg keyBtn px-5">Save Keys</button>
             </div>
         </form>
     )

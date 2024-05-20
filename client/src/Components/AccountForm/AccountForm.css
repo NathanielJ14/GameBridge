@@ -1,9 +1,4 @@
-.accountForm {
-    width: 80%;
-    margin: 0 auto;
-}
-
-.accountHeader {
+.neonHeader {
     font-size: 3.25em;
     color: #ffffff;
     text-shadow: 0 0 12px #af6bff;
@@ -35,9 +30,22 @@
 }
 
 .keyBtn {
-    width: 30%;
+    background: linear-gradient(25deg, #7027c4, #7700ff);
+    color: white;
+    text-shadow: 2px 3px 2px rgb(0, 0, 0);
+}
+
+.keyBtn:hover {
+    border: 1px white solid;
+    text-shadow: 3px 4px 2px rgb(0, 0, 0);
 }
 
 .keyLabel {
     font-size: 1.5em;
 }
+
+.accountHeaders {
+    color: #af6bff;
+    text-shadow: 5px 5px 3px #000000;
+}
+

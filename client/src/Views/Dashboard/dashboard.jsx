@@ -43,7 +43,7 @@ const Dashboard = () => {
         <div className='dashboard'>
             <Navbar />
             <div>
-                <h2 className='text-center mt-4 mb-5 accountHeader'>{userData.userName}'s Dashboard</h2>
+                <h2 className='text-center mt-4 mb-5 neonHeader'>{userData.userName}'s Dashboard</h2>
                 <p>Welcome to your dashboard!</p>
                 <FriendsList/>
             </div>
