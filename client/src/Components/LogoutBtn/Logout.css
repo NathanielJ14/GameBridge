@@ -1,0 +1,13 @@
+.logoutBtn {
+    border: 0;
+    box-shadow: 0;
+    background-color: rgba(0, 0, 0, 0);
+    color: #af6bff;
+    font-size: 1.3em;
+    text-shadow: 1px 2px 2px rgb(133, 26, 143);
+}
+
+.logoutBtn:hover {
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 2px 2px #af6bff;
+}
