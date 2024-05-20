@@ -209,7 +209,7 @@ app.post('/account/:id', verifyToken, (req, res) => {
     const userId = req.userId;
 
     // Extract account data from request body
-    const { steamKey, discordKey } = req.body;
+    const { steamKey, steamId } = req.body;
 
     // Check if the account already exists for the user
     const checkAccountQuery = 'SELECT * FROM accounts WHERE userId = ?';
@@ -221,8 +221,8 @@ app.post('/account/:id', verifyToken, (req, res) => {
 
         if (result.length === 0) {
             // If account does not exist, insert new record
-            const insertAccountQuery = 'INSERT INTO accounts (userId, steamKey, discordKey) VALUES (?, ?, ?)';
-            db.query(insertAccountQuery, [userId, steamKey, discordKey], (err, result) => {
+            const insertAccountQuery = 'INSERT INTO accounts (userId, steamKey, steamId) VALUES (?, ?, ?)';
+            db.query(insertAccountQuery, [userId, steamKey, steamId], (err, result) => {
                 if (err) {
                     console.error('Error inserting account data:', err);
                     return res.status(500).json({ Error: 'Error inserting account data' });
@@ -233,8 +233,8 @@ app.post('/account/:id', verifyToken, (req, res) => {
             });
         } else {
             // If account exists, update existing record
-            const updateAccountQuery = 'UPDATE accounts SET steamKey = ?, discordKey = ? WHERE userId = ?';
-            db.query(updateAccountQuery, [steamKey, discordKey, userId], (err, result) => {
+            const updateAccountQuery = 'UPDATE accounts SET steamKey = ?, steamId = ? WHERE userId = ?';
+            db.query(updateAccountQuery, [steamKey, steamId, userId], (err, result) => {
                 if (err) {
                     console.error('Error updating account data:', err);
                     return res.status(500).json({ Error: 'Error updating account data' });
@@ -253,7 +253,7 @@ app.get('/steam/friends', verifyToken, (req, res) => {
     const userId = req.userId;
 
     // Get the user's Steam API key from the database
-    const sql = 'SELECT steamKey, discordKey FROM accounts WHERE userId = ?';
+    const sql = 'SELECT steamKey, steamId FROM accounts WHERE userId = ?';
     db.query(sql, [userId], (err, result) => {
         if (err) {
             console.error('Error fetching Steam API key and Steam ID:', err);
@@ -264,10 +264,10 @@ app.get('/steam/friends', verifyToken, (req, res) => {
             return res.status(404).json({ Error: 'Steam API key or Steam ID not found' });
         }
 
-        const { steamKey, discordKey } = result[0];
+        const { steamKey, steamId } = result[0];
 
         // Fetch friends list from Steam API
-        const friendsUrl = `https://api.steampowered.com/ISteamUser/GetFriendList/v1/?key=${steamKey}&steamid=${discordKey}&relationship=friend`;
+        const friendsUrl = `https://api.steampowered.com/ISteamUser/GetFriendList/v1/?key=${steamKey}&steamid=${steamId}&relationship=friend`;
         fetch(friendsUrl)
             .then(response => response.json())
             .then(friendsData => {
@@ -289,7 +289,6 @@ app.get('/steam/friends', verifyToken, (req, res) => {
             });
     });
 });
-
 
 
 // Start the server

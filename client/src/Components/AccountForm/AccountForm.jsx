@@ -5,16 +5,16 @@ import "./AccountForm.css";
 
 const AccountForm = () => {
     const [steamKey, setSteamKey] = useState('');
-    const [discordKey, setDiscordKey] = useState('');
+    const [steamId, setSteamId] = useState('');
     const { id } = useParams();
 
     // Function to fetch user's account data
     const fetchAccountData = () => {
         axios.get(`http://localhost:3001/account/${id}`, { withCredentials: true })
             .then(response => {
-                const { steamKey, discordKey } = response.data;
+                const { steamKey, steamId } = response.data;
                 setSteamKey(steamKey || "");
-                setDiscordKey(discordKey || "");
+                setDiscordKey(steamId || "");
             })
             .catch(error => console.error("Error fetching account data:", error));
     };
@@ -26,7 +26,7 @@ const AccountForm = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const data = { steamKey, discordKey };
+        const data = { steamKey, steamId };
         axios.post(`http://localhost:3001/account/${id}`, data, { withCredentials: true })
             .then(response => {
                 if (response.status === 200) {
@@ -47,8 +47,8 @@ const AccountForm = () => {
                     <input type="text" className="form-control" id="steamKey" placeholder="Your Steam API Key" value={steamKey} onChange={(e) => setSteamKey(e.target.value)} />
                 </div>
                 <div className="col-md-6 mb-3">
-                    <label htmlFor="discordKey" className="form-label keyLabel">Discord Key</label>
-                    <input type="text" className="form-control" id="discordKey" placeholder="Your Discord API Key" value={discordKey} onChange={(e) => setDiscordKey(e.target.value)} />
+                    <label htmlFor="steamId" className="form-label keyLabel">Steam Id</label>
+                    <input type="text" className="form-control" id="steamId" placeholder="Your Steam Id" value={steamId} onChange={(e) => setSteamId(e.target.value)} />
                 </div>
             </div>
             <div className="text-center mt-3">

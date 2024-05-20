@@ -26,10 +26,6 @@ const FriendsList = () => {
         return <div>Loading...</div>;
     }
 
-    if (error) {
-        return <div>{error}</div>;
-    }
-
     return (
         <div>
             <h1>Friends List</h1>
