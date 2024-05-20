@@ -49,7 +49,7 @@ const LoginForm = () => {
                             <input type="password" className="form-control" name="password" required placeholder="Password" onChange={e => setValues({ ...values, password: e.target.value })} />
                         </div>
                         <div className="d-flex justify-content-center">
-                            <button type="submit" className="btn mt-2">Login</button>
+                            <button type="submit" className="btn mt-2 authBtn">Login</button>
                         </div>
                     </form>
                 </div>

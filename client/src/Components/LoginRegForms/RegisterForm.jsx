@@ -57,7 +57,7 @@ const RegisterForm = () => {
                             <input type="password" className="form-control" name="confirmPassword" required placeholder="Confirm Password" onChange={e => setValues({ ...values, confirmPassword: e.target.value })} />
                         </div>
                         <div className="d-flex justify-content-center">
-                            <button type="submit" className="btn mt-2">Register</button>
+                            <button type="submit" className="btn mt-2 authBtn">Register</button>
                         </div>
                     </form>
                 </div>

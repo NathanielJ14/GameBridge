@@ -2,12 +2,12 @@
     width: 35%;
 }
 
-button {
+.authBtn {
     width: 60%;
     color: white;
     background-color: rgb(161, 71, 246);
 }
 
-button:hover {
+.authBtn:hover {
     background-color: #af6bff;
 }
