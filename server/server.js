@@ -183,7 +183,7 @@ app.get('/account/:id', verifyToken, async (req, res) => {
                         console.error('Error fetching user info:', err);
                         throw new Error('Error fetching user info');
                     }
-                    
+
                     if (userResult.length === 0) {
                         return res.status(404).json({ Error: 'User not found' });
                     }
@@ -246,6 +246,50 @@ app.post('/account/:id', verifyToken, (req, res) => {
         }
     });
 });
+
+
+// Fetch user's Steam friends list
+app.get('/steam/friends', verifyToken, (req, res) => {
+    const userId = req.userId;
+
+    // Get the user's Steam API key from the database
+    const sql = 'SELECT steamKey, discordKey FROM accounts WHERE userId = ?';
+    db.query(sql, [userId], (err, result) => {
+        if (err) {
+            console.error('Error fetching Steam API key and Steam ID:', err);
+            return res.status(500).json({ Error: 'Error fetching Steam API key and Steam ID' });
+        }
+
+        if (result.length === 0) {
+            return res.status(404).json({ Error: 'Steam API key or Steam ID not found' });
+        }
+
+        const { steamKey, discordKey } = result[0];
+
+        // Fetch friends list from Steam API
+        const friendsUrl = `https://api.steampowered.com/ISteamUser/GetFriendList/v1/?key=${steamKey}&steamid=${discordKey}&relationship=friend`;
+        fetch(friendsUrl)
+            .then(response => response.json())
+            .then(friendsData => {
+                const friendIds = friendsData.friendslist.friends.map(friend => friend.steamid).join(',');
+
+                // Fetch friends' summaries (including online status) from Steam API
+                const summariesUrl = `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${steamKey}&steamids=${friendIds}`;
+                return fetch(summariesUrl)
+                    .then(response => response.json())
+                    .then(summariesData => res.json(summariesData))
+                    .catch(error => {
+                        console.error('Error fetching friends summaries:', error);
+                        res.status(500).json({ Error: 'Error fetching friends summaries' });
+                    });
+            })
+            .catch(error => {
+                console.error('Error fetching friends list:', error);
+                res.status(500).json({ Error: 'Error fetching friends list' });
+            });
+    });
+});
+
 
 
 // Start the server
