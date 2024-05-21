@@ -1,42 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const FriendsList = () => {
     const [friends, setFriends] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { id } = useParams();
+
+     // Function to fetch friends data
+    const fetchFriendsData = () => {
+        axios.get(`http://localhost:3001/friend/${id}`, { withCredentials: true })
+            .then(response => {
+                if (Array.isArray(response.data)) {
+                    setFriends(response.data);
+                } else {
+                    console.error("Expected an array but got:", response.data);
+                }
+            })
+            .catch(error => console.error("Error fetching friends data:", error));
+    };
 
     useEffect(() => {
-        // Fetch the friends list with their online statuses
-        const fetchFriends = async () => {
-            try {
-                const response = await axios.get('http://localhost:3001/steam/friends', { withCredentials: true });
-                setFriends(response.data.response.players);
-                setLoading(false);
-            } catch (error) {
-                setError('Error fetching friends list');
-                setLoading(false);
-            }
-        };
-
-        fetchFriends();
-    }, []);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+        fetchFriendsData();
+    }, [id]);
 
     return (
         <div>
-            <h1>Friends List</h1>
+            <h1 className='text-center'>Friends List</h1>
             <ul>
-                {friends.map((friend) => (
-                    <li key={friend.steamid}>
-                        {friend.personaname} - {friend.personastate === 1 ? 'Online' : 'Offline'}
-                    </li>
+                {friends.map(friend => (
+                    <li key={friend.steamFriendId}>{friend.name}</li>
                 ))}
             </ul>
-            <button type="submit" className="btn keyBtn">Add a friend</button>
         </div>
     );
 };

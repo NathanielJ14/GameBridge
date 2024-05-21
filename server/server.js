@@ -290,8 +290,6 @@ app.get('/steam/friends', verifyToken, (req, res) => {
     });
 });
 
-
-
 // Add a friend
 app.post('/friend/:id', verifyToken, (req, res) => {
     // Get the userId
@@ -312,6 +310,28 @@ app.post('/friend/:id', verifyToken, (req, res) => {
     });
 });
 
+// Get all friends info
+app.get('/friend/:id', verifyToken, (req, res) => {
+    // Get the userId
+    const userId = req.userId;
+
+    // Fetch friends information based on the userId
+    const sql = 'SELECT * FROM friends WHERE userId = ?';
+    db.query(sql, [userId], (err, result) => {
+        if (err) {
+            console.error('Error fetching user friends info:', err);
+            return res.status(500).json({ Error: 'Error fetching user friends info' });
+        }
+
+        // If no friends exist throw error
+        if (result.length === 0) {
+            return res.status(404).json({ Error: 'Friends not found' });
+        }
+
+        // Respond with friend 
+        return res.status(200).json(result);
+    });
+});
 
 
 // Start the server
