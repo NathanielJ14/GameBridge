@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import FriendsList from '../../Components/FriendsList/FriendsList';
+import FriendsForm from '../../Components/FriendsForm/FriendsForm';
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -44,8 +45,17 @@ const Dashboard = () => {
             <Navbar />
             <div>
                 <h2 className='text-center mt-4 mb-5 neonHeader'>{userData.userName}'s Dashboard</h2>
-                <p>Welcome to your dashboard!</p>
-                <FriendsList/>
+                
+                <div className='container'>
+                    <div className='row'>
+                        <div className='col-md-6 d-flex justify-content-center'>
+                            <FriendsList />
+                        </div>
+                        <div className='col-md-6 d-flex justify-content-center'>
+                            <FriendsForm />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );
