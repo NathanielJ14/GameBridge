@@ -291,6 +291,29 @@ app.get('/steam/friends', verifyToken, (req, res) => {
 });
 
 
+
+// Add a friend
+app.post('/friend/:id', verifyToken, (req, res) => {
+    // Get the userId
+    const userId = req.userId;
+
+    // Extract friend data from request body
+    const { name, steamFriendId } = req.body;
+
+    const insertFriendQuery = 'INSERT INTO friends (userId, name, steamFriendId) VALUES (?, ?, ?)';
+    db.query(insertFriendQuery, [userId, name, steamFriendId], (err, result) => {
+        if (err) {
+            console.error('Error inserting friend data:', err);
+            return res.status(500).json({ Error: 'Error inserting friend data' });
+        }
+
+        console.log('Friend added successfully');
+        return res.status(200).json({ Status: 'Success' });
+    });
+});
+
+
+
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
