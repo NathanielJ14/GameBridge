@@ -34,6 +34,7 @@ const FriendsForm = () => {
             .then(response => {
                 if (response.status === 200) {
                     console.log("New friend created successfully.");
+                    location.reload();
                 } else {
                     console.error("Failed to save friend data.");
                 }
