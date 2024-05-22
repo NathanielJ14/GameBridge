@@ -54,7 +54,7 @@ const AccountForm = () => {
                     </div>
                 </div>
 
-                <div className="border border-secondary rounded p-4 m-4">
+                {/* <div className="border border-secondary rounded p-4 m-4">
                     <div className="mb-4">
                         <h2 className="mb-4 accountHeaders">Connect your discord account</h2>
                         <label htmlFor="steamKey" className="form-label keyLabel">Steam Key</label>
@@ -64,7 +64,7 @@ const AccountForm = () => {
                         <label htmlFor="steamId" className="form-label keyLabel">Steam Id</label>
                         <input type="text" className="form-control" id="steamId" placeholder="Your Steam Id" value={steamId} onChange={(e) => setSteamId(e.target.value)} />
                     </div>
-                </div>
+                </div> */}
             </div>
             
             <div className="text-center mt-3">
