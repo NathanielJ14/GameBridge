@@ -38,6 +38,7 @@
 .keyBtn:hover {
     border: 1px white solid;
     text-shadow: 3px 4px 2px rgb(0, 0, 0);
+    color: white;
 }
 
 .keyLabel {
