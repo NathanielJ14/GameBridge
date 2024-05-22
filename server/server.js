@@ -280,7 +280,7 @@ app.get('/steam/friends', verifyToken, (req, res) => {
                 const summariesUrl = `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${steamKey}&steamids=${friendIds}`;
                 return fetch(summariesUrl)
                     .then(response => response.json())
-                    .then(summariesData => res.json(summariesData.response.players))
+                    .then(summariesData => res.json(summariesData))
                     .catch(error => {
                         console.error('Error fetching friends summaries:', error);
                         res.status(500).json({ Error: 'Error fetching friends summaries' });
