@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import './FriendsList.css';
 
 const FriendsList = () => {
     const [friends, setFriends] = useState([]);
     const { id } = useParams();
 
-     // Function to fetch friends data
+    // Function to fetch friends data
     const fetchFriendsData = () => {
         axios.get(`http://localhost:3001/friend/${id}`, { withCredentials: true })
             .then(response => {
@@ -24,13 +25,27 @@ const FriendsList = () => {
     }, [id]);
 
     return (
-        <div>
+        <div className='friendList px-5 py-2'>
             <h1 className='text-center'>Friends List</h1>
-            <ul>
-                {friends.map(friend => (
-                    <li key={friend.steamFriendId}>{friend.name}</li>
-                ))}
-            </ul>
+
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Status</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Active On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {friends.map(friend => (
+                        <tr key={friend.steamid}>
+                            <td>{friend.personastate === 1 ? 'Online' : 'Offline'}</td>
+                            <td>{friend.name}</td>
+                            <td>Steam</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 };

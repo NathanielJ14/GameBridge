@@ -247,7 +247,6 @@ app.post('/account/:id', verifyToken, (req, res) => {
     });
 });
 
-
 // Fetch user's Steam friends list
 app.get('/steam/friends', verifyToken, (req, res) => {
     const userId = req.userId;
@@ -271,13 +270,17 @@ app.get('/steam/friends', verifyToken, (req, res) => {
         fetch(friendsUrl)
             .then(response => response.json())
             .then(friendsData => {
+                if (!friendsData.friendslist || !friendsData.friendslist.friends) {
+                    return res.status(404).json({ Error: 'No friends found' });
+                }
+
                 const friendIds = friendsData.friendslist.friends.map(friend => friend.steamid).join(',');
 
                 // Fetch friends' summaries (including online status) from Steam API
                 const summariesUrl = `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${steamKey}&steamids=${friendIds}`;
                 return fetch(summariesUrl)
                     .then(response => response.json())
-                    .then(summariesData => res.json(summariesData))
+                    .then(summariesData => res.json(summariesData.response.players))
                     .catch(error => {
                         console.error('Error fetching friends summaries:', error);
                         res.status(500).json({ Error: 'Error fetching friends summaries' });
