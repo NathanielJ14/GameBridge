@@ -120,7 +120,7 @@ app.get('/logout', (req, res) => {
 
 // Auth middleware to verify user from token
 const verifyToken = (req, res, next) => {
-    //Get token from cookie
+    // Get token from cookie
     const token = req.cookies.token;
     if (!token) {
         return res.status(401).json({ Error: 'Unauthorized: No token provided' });
@@ -198,6 +198,7 @@ app.get('/account/:id', verifyToken, async (req, res) => {
             }
         });
     } catch (error) {
+        // Throw error
         console.error('Error:', error);
         return res.status(500).json({ Error: 'Internal Server Error' });
     }
@@ -259,6 +260,7 @@ app.get('/steam/friends', verifyToken, (req, res) => {
             return res.status(500).json({ Error: 'Error fetching Steam API key and Steam ID' });
         }
 
+        // If users API key or ID cant be found throw error
         if (result.length === 0) {
             return res.status(404).json({ Error: 'Steam API key or Steam ID not found' });
         }
@@ -301,6 +303,7 @@ app.post('/friend/:id', verifyToken, (req, res) => {
     // Extract friend data from request body
     const { name, steamFriendId } = req.body;
 
+    // SQL querie to create new friend
     const insertFriendQuery = 'INSERT INTO friends (userId, name, steamFriendId) VALUES (?, ?, ?)';
     db.query(insertFriendQuery, [userId, name, steamFriendId], (err, result) => {
         if (err) {
