@@ -51,3 +51,9 @@ const FriendsList = () => {
 };
 
 export default FriendsList;
+
+
+
+// Notes
+
+// Fix steam personastate on frineds list to get it from the api instead of db
