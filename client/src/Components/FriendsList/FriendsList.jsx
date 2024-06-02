@@ -37,6 +37,7 @@ const FriendsList = () => {
                     </tr>
                 </thead>
                 <tbody>
+                    {/* Display friends list using friends name and online status */}
                     {friends.map(friend => (
                         <tr key={friend.steamid}>
                             <td>{friend.personastate === 1 ? 'Online' : 'Offline'}</td>

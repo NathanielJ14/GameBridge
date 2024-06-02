@@ -29,6 +29,7 @@ const FriendsForm = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+        // Get friend data
         const data = { name, steamFriendId };
         axios.post(`http://localhost:3001/friend/${id}`, data, { withCredentials: true })
             .then(response => {
@@ -57,6 +58,7 @@ const FriendsForm = () => {
                 <div className="mb-3">
                     <label htmlFor="steamName" className="form-label">Steam Name</label>
                     <select className="form-control" id="steamName" onChange={(e) => setSteamFriendId(e.target.value)}>
+                        {/* Show list of all friends name and online status */}
                         {steamFriends.map((steamFriend) => (
                             <option key={steamFriend.steamid} value={steamFriend.steamid}>
                                 {steamFriend.personaname} - {steamFriend.personastate === 1 ? 'Online' : 'Offline'}
