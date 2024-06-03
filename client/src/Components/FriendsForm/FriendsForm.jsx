@@ -25,6 +25,28 @@ const FriendsForm = () => {
         fetchSteamFriends();
     }, []);
 
+    // Helper function to get the status string from personastate code
+    const getStatusString = (personastate) => {
+        switch (personastate) {
+            case 0:
+                return 'Offline';
+            case 1:
+                return 'Online';
+            case 2:
+                return 'Busy';
+            case 3:
+                return 'Away';
+            case 4:
+                return 'Snooze';
+            case 5:
+                return 'Looking to trade';
+            case 6:
+                return 'Looking to play';
+            default:
+                return 'Unknown';
+        }
+    };
+
     // Handle create new friend
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -61,7 +83,7 @@ const FriendsForm = () => {
                         {/* Show list of all friends name and online status */}
                         {steamFriends.map((steamFriend) => (
                             <option key={steamFriend.steamid} value={steamFriend.steamid}>
-                                {steamFriend.personaname} - {steamFriend.personastate === 1 ? 'Online' : 'Offline'}
+                                {steamFriend.personaname} - {getStatusString(steamFriend.personastate)}
                             </option>
                         ))}
                     </select>
