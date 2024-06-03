@@ -30,6 +30,28 @@ const FriendsList = () => {
         }
     };
 
+    // Helper function to get the dot class name from personastate code
+    const getDotClassName = (personastate) => {
+        switch (personastate) {
+            case 0:
+                return 'dotOffline';
+            case 1:
+                return 'dotOnline';
+            case 2:
+                return 'dotBusy';
+            case 3:
+                return 'dotAway';
+            case 4:
+                return 'dotSnooze';
+            case 5:
+                return 'dotTrade';
+            case 6:
+                return 'dotPlay';
+            default:
+                return 'Unknown';
+        }
+    };
+
     // Function to fetch friends data from the database
     const fetchFriendsData = async () => {
         try {
@@ -81,16 +103,18 @@ const FriendsList = () => {
                     <tr>
                         <th scope="col">Status</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Active On</th>
+                        <th scope="col">Current</th>
                     </tr>
                 </thead>
                 <tbody>
                     {/* Display friends list using friends name and online status */}
                     {mergedFriends.map(friend => (
                         <tr key={friend.steamid}>
-                            <td>{getStatusString(friend.personastate)}</td>
+                            <td>
+                                <div className={`rounded-circle ${getDotClassName(friend.personastate)}`}></div>
+                            </td>
                             <td>{friend.name}</td>
-                            <td>Steam</td>
+                            <td>{getStatusString(friend.personastate)}</td>
                         </tr>
                     ))}
                 </tbody>

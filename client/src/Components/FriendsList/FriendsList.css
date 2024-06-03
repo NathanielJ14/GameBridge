@@ -1,3 +1,59 @@
 .friendList {
     box-shadow: 0px 0px 10px #000000;
 }
+
+.table th,
+.table td {
+    border: none;
+}
+
+.dotOnline {
+    background-color: rgb(84, 196, 84);
+    width: 1em;
+    height: 1em;
+    margin: 4px auto;
+}
+
+.dotOffline {
+    background-color: rgb(236, 71, 71);
+    width: 1em;
+    height: 1em;
+    margin: 4px auto;
+    box-shadow: 0px 0px 10px rgb(212, 63, 63);
+}
+
+.dotSnooze {
+    background-color: rgb(74, 131, 218);
+    width: 1em;
+    height: 1em;
+    margin: 4px auto;
+    box-shadow: 0px 0px 10px rgb(89, 130, 192);
+}
+
+.dotAway {
+    background-color: rgb(251, 255, 0);
+    width: 1em;
+    height: 1em;
+    margin: 4px auto;
+}
+
+.dotTrade {
+    background-color: rgb(132, 0, 255);
+    width: 1em;
+    height: 1em;
+    margin: 4px auto;
+}
+
+.dotPlay {
+    background-color: rgb(0, 247, 255);
+    width: 1em;
+    height: 1em;
+    margin: 4px auto;
+}
+
+.dotBusy {
+    background-color: rgb(255, 115, 0);
+    width: 1em;
+    height: 1em;
+    margin: 4px auto;
+}
