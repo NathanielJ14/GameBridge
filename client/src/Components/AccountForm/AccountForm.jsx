@@ -54,11 +54,10 @@ const AccountForm = () => {
                                 <label htmlFor="steamId" className="form-label keyLabel">Steam Id</label>
                                 <input type="text" className="form-control" id="steamId" placeholder="Your Steam Id" value={steamId} onChange={(e) => setSteamId(e.target.value)} />
                             </div>
+                            <div className="text-center mt-3">
+                                <button type="submit" className="btn btn-lg keyBtn px-5">Save Steam Keys</button>
+                            </div>
                         </div>
-                    </div>
-            
-                    <div className="text-center mt-3">
-                        <button type="submit" className="btn btn-lg keyBtn px-5">Save Steam Keys</button>
                     </div>
                 </form>
                 <div className="col-md-6">
