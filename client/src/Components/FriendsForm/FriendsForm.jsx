@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import "./FriendsForm.css";
 
 const FriendsForm = () => {
     const [steamFriends, setSteamFriends] = useState([]);
@@ -70,7 +71,7 @@ const FriendsForm = () => {
     }
     
     return (
-        <div>
+        <div className='friendsForm rounded px-5 py-2'>
             <h1>Friends Form</h1>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">

@@ -73,7 +73,7 @@ const FriendsList = () => {
     const mergedFriends = mergeFriendsData();
 
     return (
-        <div className='friendList px-5 py-2'>
+        <div className='friendList px-5 py-2 rounded'>
             <h1 className='text-center'>Friends List</h1>
 
             <table className="table">
