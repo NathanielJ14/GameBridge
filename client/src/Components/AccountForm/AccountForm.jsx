@@ -44,7 +44,7 @@ const AccountForm = () => {
             <div className="row mx-0">
                 <form className="text-center col-md-6" onSubmit={handleSubmit}>
                     <div className="d-flex justify-content-center">
-                        <div className="border border-secondary rounded p-4 m-4">
+                        <div className="formBorder rounded p-4 m-4">
                             <div className="mb-4">
                                 <h2 className="mb-4 accountHeaders">Connect your steam account</h2>
                                 <label htmlFor="steamKey" className="form-label keyLabel">Steam Key</label>
@@ -62,7 +62,7 @@ const AccountForm = () => {
                 </form>
                 <div className="col-md-6">
                     <div className="d-flex justify-content-center">
-                        <div className="border border-secondary rounded p-4 m-4">
+                        <div className="formBorder rounded p-4 m-4">
                             <div className="mb-4">
                                 <h2 className="mb-4 accountHeaders">Connect your discord account</h2>
                                 <div className="text-center mt-3">
