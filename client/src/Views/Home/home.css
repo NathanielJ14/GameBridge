@@ -15,6 +15,6 @@
 
 .middleLine {
     height: 400px;
-    width: 3px;
-    background: linear-gradient(to bottom, #e469a0, #dc8bf0);
+    width: 1px;
+    background-color: white;
 }
