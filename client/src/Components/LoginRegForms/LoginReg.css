@@ -5,9 +5,11 @@
 .authBtn {
     width: 60%;
     color: white;
-    background-color: rgb(161, 71, 246);
+    background: linear-gradient(to right, #F72585, #B5179E);
+    border: 0px;
+    border-radius: 20px;
 }
 
 .authBtn:hover {
-    background-color: #af6bff;
+    box-shadow: 0px 0px 10px #4361EE;
 }
