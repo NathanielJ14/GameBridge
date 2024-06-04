@@ -39,18 +39,18 @@ const RegisterForm = () => {
 
     return (
         <div className="form">
-            <div className="card bg-dark">
-                <h2 className="text-center mt-2">Register</h2>
+            <div className="card bg-dark round p-2">
+                <h2 className="text-center mt-2 authHead">Register</h2>
                 <div className="card-body">
                     <form onSubmit={handleSubmit}>
                         {error && <div className="alert alert-danger">{error}</div>}
-                        <div className="mb-3">
+                        <div className="mb-4">
                             <input type="text" className="form-control" name="userName" required placeholder="Username" onChange={e => setValues({ ...values, userName: e.target.value })} />
                         </div>
-                        <div className="mb-3">
+                        <div className="mb-4">
                             <input type="email" className="form-control" name="email" required placeholder="Email" onChange={e => setValues({ ...values, email: e.target.value })} />
                         </div>
-                        <div className="mb-3">
+                        <div className="mb-4">
                             <input type="password" className="form-control" name="password" required placeholder="Password" onChange={e => setValues({ ...values, password: e.target.value })} />
                         </div>
                         <div className="mb-3">

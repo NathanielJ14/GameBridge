@@ -37,12 +37,12 @@ const LoginForm = () => {
 
     return (
         <div className="form">
-            <div className="card bg-dark">
-                <h2 className="text-center mt-2">Login</h2>
+            <div className="card bg-dark round p-2">
+                <h2 className="text-center mt-2 authHead">Login</h2>
                 <div className="card-body">
                     <form onSubmit={handleSubmit}>
                         {error && <div className="alert alert-danger">{error}</div>}
-                        <div className="mb-3">
+                        <div className="mb-4">
                             <input type="email" className="form-control" name="email" required placeholder="Email" onChange={e => setValues({ ...values, email: e.target.value })} />
                         </div>
                         <div className="mb-3">

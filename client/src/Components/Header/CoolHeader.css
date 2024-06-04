@@ -1,7 +1,7 @@
 .cool-header {
     font-size: 4em;
     color: #ffffff;
-    text-shadow: 0 0 12px #af6bff;
+    text-shadow: 0 0 12px #7209B7;
     /* Neon shadow effect */
     animation: flicker 0.6s infinite alternate;
 }
@@ -10,21 +10,21 @@
     0% {
         opacity: 0.8;
         /* Initial opacity (less bright) */
-        text-shadow: 0 0 10px #af6bff;
+        text-shadow: 0 0 10px #7209B7;
         /* Neon shadow effect */
     }
 
     50% {
         opacity: 1;
         /* Full opacity (brighter) */
-        text-shadow: 0 0 15px #af6bff;
+        text-shadow: 0 0 15px #7209B7;
         /* Slightly larger shadow */
     }
 
     100% {
         opacity: 0.9;
         /* Slightly reduced opacity */
-        text-shadow: 0 0 12px #af6bff;
+        text-shadow: 0 0 12px #7209B7;
         /* Intermediate shadow size */
     }
 }

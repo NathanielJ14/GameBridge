@@ -8,8 +8,17 @@
     background: linear-gradient(to right, #F72585, #B5179E);
     border: 0px;
     border-radius: 20px;
+    font-size: 1.2em;
 }
 
 .authBtn:hover {
-    box-shadow: 0px 0px 10px #4361EE;
+    box-shadow: 0px 0px 10px #c64bff;
+}
+
+.round {
+    border-radius: 50px;
+}
+
+.authHead {
+    font-size: 2.3em;
 }
