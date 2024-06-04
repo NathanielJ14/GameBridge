@@ -8,3 +8,13 @@
     height: 110vh;
     padding: 2rem;
 }
+
+.formBox {
+    margin-top: 4rem;
+}
+
+.middleLine {
+    height: 400px;
+    width: 3px;
+    background: linear-gradient(to bottom, #e469a0, #dc8bf0);
+}

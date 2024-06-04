@@ -9,9 +9,10 @@ const Home = () => {
             <div className="text-center mt-4">
                 <CoolHeader />
             </div>
-            <div className="d-flex container justify-content-around mt-5">
-                <LoginForm />
+            <div className="d-flex container justify-content-around formBox">
                 <RegisterForm />
+                <div className="middleLine"></div>
+                <LoginForm />
             </div>
         </div>
     )
