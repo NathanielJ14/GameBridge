@@ -44,8 +44,7 @@ const Dashboard = () => {
         <div className='dashboard'>
             <Navbar />
             <div>
-                <h2 className='text-center mt-4 mb-5 neonHeader'>{userData.userName}'s Dashboard</h2>
-                
+                <h2 className='text-center mt-5 mb-5 pb-4 neonHeader'>{userData.userName}'s Dashboard</h2>
                 <div className='container'>
                     <div className='row'>
                         <div className='col-md-6 d-flex justify-content-center'>

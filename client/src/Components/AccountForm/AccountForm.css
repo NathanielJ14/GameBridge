@@ -1,7 +1,7 @@
 .neonHeader {
     font-size: 3.25em;
     color: #ffffff;
-    text-shadow: 0 0 12px #af6bff;
+    text-shadow: 0 0 12px #B5179E;
     /* Neon shadow effect */
     animation: flicker 0.6s infinite alternate;
 }
@@ -10,35 +10,23 @@
     0% {
         opacity: 0.8;
         /* Initial opacity (less bright) */
-        text-shadow: 0 0 10px #af6bff;
+        text-shadow: 0 0 10px #F72585;
         /* Neon shadow effect */
     }
 
     50% {
         opacity: 1;
         /* Full opacity (brighter) */
-        text-shadow: 0 0 15px #af6bff;
+        text-shadow: 0 0 15px #B5179E;
         /* Slightly larger shadow */
     }
 
     100% {
         opacity: 0.9;
         /* Slightly reduced opacity */
-        text-shadow: 0 0 12px #af6bff;
+        text-shadow: 0 0 12px #B5179E;
         /* Intermediate shadow size */
     }
-}
-
-.keyBtn {
-    background: linear-gradient(25deg, #7027c4, #7700ff);
-    color: white;
-    text-shadow: 2px 3px 2px rgb(0, 0, 0);
-}
-
-.keyBtn:hover {
-    border: 1px white solid;
-    text-shadow: 3px 4px 2px rgb(0, 0, 0);
-    color: white;
 }
 
 .keyLabel {

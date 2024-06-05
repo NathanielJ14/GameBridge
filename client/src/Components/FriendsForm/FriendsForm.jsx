@@ -71,14 +71,14 @@ const FriendsForm = () => {
     }
     
     return (
-        <div className='friendsForm rounded px-5 py-2'>
-            <h1>Friends Form</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
+        <div className='friendsForm py-2'>
+            <h1 className='mt-2 mx-5 header'>Add a Friend</h1>
+            <form className='mt-4 mx-4' onSubmit={handleSubmit}>
+                <div className="mb-4">
                     <label htmlFor="name" className="form-label">Name</label>
                     <input type="text" className="form-control" id="name" onChange={(e) => setName(e.target.value)}/>
                 </div>
-                <div className="mb-3">
+                <div className="mb-4">
                     <label htmlFor="steamName" className="form-label">Steam Name</label>
                     <select className="form-control" id="steamName" onChange={(e) => setSteamFriendId(e.target.value)}>
                         {/* Show list of all friends name and online status */}
@@ -90,7 +90,7 @@ const FriendsForm = () => {
                     </select>
                 </div>
                 <div className="d-flex justify-content-center">
-                    <button type="submit" className="btn keyBtn">Add a friend</button>
+                    <button type="submit" className="btn authBtn">Add Friend</button>
                 </div>
             </form>
         </div>
