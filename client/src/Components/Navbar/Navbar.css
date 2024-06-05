@@ -8,9 +8,13 @@ a {
 }
 
 a:hover {
-    color: #b47bf4;
+    color: #F72585;
 }
 
 .navHeader {
-    color: #af6bff;
+    background: linear-gradient(to right, #B5179E, #F72585);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.5em;
 }
