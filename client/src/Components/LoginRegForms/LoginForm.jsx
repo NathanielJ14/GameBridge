@@ -36,8 +36,8 @@ const LoginForm = () => {
     }
 
     return (
-        <div className="form login">
-            <div className="card bg-dark round p-2">
+        <div className="form">
+            <div className="card formBg p-2">
                 <h2 className="text-center mt-2 authHead">Login</h2>
                 <div className="card-body">
                     <form onSubmit={handleSubmit}>

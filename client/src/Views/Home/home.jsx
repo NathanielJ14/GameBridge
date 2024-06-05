@@ -10,9 +10,9 @@ const Home = () => {
                 <CoolHeader />
             </div>
             <div className="d-flex container justify-content-around formBox">
-                <RegisterForm />
-                <div className="middleLine"></div>
                 <LoginForm />
+                <div className="middleLine"></div>
+                <RegisterForm />
             </div>
         </div>
     )

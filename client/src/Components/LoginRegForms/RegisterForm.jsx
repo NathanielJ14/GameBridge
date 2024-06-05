@@ -39,7 +39,7 @@ const RegisterForm = () => {
 
     return (
         <div className="form">
-            <div className="card bg-dark round p-2">
+            <div className="card formBg p-2">
                 <h2 className="text-center mt-2 authHead">Register</h2>
                 <div className="card-body">
                     <form onSubmit={handleSubmit}>
