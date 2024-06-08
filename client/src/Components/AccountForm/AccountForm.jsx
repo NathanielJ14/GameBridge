@@ -48,7 +48,7 @@ const AccountForm = () => {
                             <div className="mb-4">
                                 <h2 className="mb-4 accountHeaders">Connect your steam account</h2>
                                 <label htmlFor="steamKey" className="form-label keyLabel">Steam Key</label>
-                                <input type="text" className="form-control" id="steamKey" placeholder="Your Steam API Key" value={steamKey} onChange={(e) => setSteamKey(e.target.value)} />
+                                <input type="password" className="form-control" id="steamKey" placeholder="Your Steam API Key" value={steamKey} onChange={(e) => setSteamKey(e.target.value)} />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="steamId" className="form-label keyLabel">Steam Id</label>
