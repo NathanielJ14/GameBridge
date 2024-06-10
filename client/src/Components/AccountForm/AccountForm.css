@@ -34,11 +34,24 @@
 }
 
 .accountHeaders {
-    color: #af6bff;
+    color: #ffffff;
     text-shadow: 5px 5px 3px #000000;
 }
 
 .formBorder {
-    box-shadow: 0px 0px 10px #000000;
+    background-color: #232222;
+    border-radius: 20px;
 }
 
+.accountBtn {
+    background: linear-gradient(to right, #F72585, #B5179E);
+    border: 0px;
+    border-radius: 20px;
+    color: #ffffff;
+    width: 60%;
+}
+
+.accountBtn:hover {
+    box-shadow: 0px 0px 10px #c64bff;
+    color: white;
+}

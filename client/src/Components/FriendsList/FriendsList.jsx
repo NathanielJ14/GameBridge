@@ -95,17 +95,23 @@ const FriendsList = () => {
     const mergedFriends = mergeFriendsData();
 
     return (
-        <div className='friendList px-5 py-2 rounded'>
-            <h1 className='text-center'>Friends List</h1>
+        <div className='friendList px-5 py-2'>
+            <h1 className='text-center header'>Friends List</h1>
+
+
+            <div className='friendCol'> 
+                <div className='friendRow'>
+                    <div className='friendAvatar'>
+                        
+                    </div>
+                    <div className='friendInfo'>
+
+                    </div>
+                </div>
+            </div>
 
             <table className="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Status</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Current</th>
-                    </tr>
-                </thead>
+                
                 <tbody>
                     {/* Display friends list using friends name and online status */}
                     {mergedFriends.map(friend => (

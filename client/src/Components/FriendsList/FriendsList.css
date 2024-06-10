@@ -1,5 +1,6 @@
 .friendList {
-    box-shadow: 0px 0px 10px #000000;
+    background-color: #232222;
+    border-radius: 20px;
 }
 
 .table th,
@@ -7,6 +8,8 @@
     border: none;
     text-align: left;
 }
+
+
 
 .dotOnline {
     background-color: rgb(84, 196, 84);

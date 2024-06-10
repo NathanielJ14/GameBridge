@@ -40,13 +40,13 @@ const AccountForm = () => {
 
     return (
         <div>
-            <h2 className="text-center mt-4 mb-3 neonHeader">Your Accounts</h2>
-            <div className="row mx-0">
-                <form className="text-center col-md-6" onSubmit={handleSubmit}>
+            <h2 className="text-center mt-4 mb-5 neonHeader">Your Accounts</h2>
+            <div className="row mx-5">
+                <form className="col-md-6" onSubmit={handleSubmit}>
                     <div className="d-flex justify-content-center">
-                        <div className="formBorder rounded p-4 m-4">
+                        <div className="formBorder px-5 py-3 m-4">
                             <div className="mb-4">
-                                <h2 className="mb-4 accountHeaders">Connect your steam account</h2>
+                                <h2 className="mb-4 accountHeaders">Connect your Steam account</h2>
                                 <label htmlFor="steamKey" className="form-label keyLabel">Steam Key</label>
                                 <input type="password" className="form-control" id="steamKey" placeholder="Your Steam API Key" value={steamKey} onChange={(e) => setSteamKey(e.target.value)} />
                             </div>
@@ -55,18 +55,18 @@ const AccountForm = () => {
                                 <input type="text" className="form-control" id="steamId" placeholder="Your Steam Id" value={steamId} onChange={(e) => setSteamId(e.target.value)} />
                             </div>
                             <div className="text-center mt-3">
-                                <button type="submit" className="btn btn-lg keyBtn px-5">Save Steam Keys</button>
+                                <button type="submit" className="btn btn-lg px-5 accountBtn">Save Steam Info</button>
                             </div>
                         </div>
                     </div>
                 </form>
                 <div className="col-md-6">
                     <div className="d-flex justify-content-center">
-                        <div className="formBorder rounded p-4 m-4">
+                        <div className="formBorder px-5 py-3 m-4">
                             <div className="mb-4">
-                                <h2 className="mb-4 accountHeaders">Connect your discord account</h2>
+                                <h2 className="mb-4 accountHeaders">Connect your Discord account</h2>
                                 <div className="text-center mt-3">
-                                    <Link to={'https://discord.com/oauth2/authorize?client_id=1241751545951948800&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5173%2Faccount%2F%3Aid&scope=identify+connections+relationships.read+presences.read'} className="btn btn-lg keyBtn px-5">
+                                    <Link to={'https://discord.com/oauth2/authorize?client_id=1241751545951948800&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5173%2Faccount%2F%3Aid&scope=identify+connections+relationships.read+presences.read'} className="btn btn-lg px-5 accountBtn">
                                         Discord
                                     </Link>
                                 </div>
