@@ -8,7 +8,7 @@ const FriendsList = () => {
     const [steamFriends, setSteamFriends] = useState([]);
     const { id } = useParams();
 
-    // Helper function to get the status string from personastate code
+    // Function to get the status string from personastate code
     const getStatusString = (personastate) => {
         switch (personastate) {
             case 0:
@@ -30,7 +30,7 @@ const FriendsList = () => {
         }
     };
 
-    // Helper function to get the dot class name from personastate code
+    // Function to get the dot class name from personastate code
     const getDotClassName = (personastate) => {
         switch (personastate) {
             case 0:
@@ -76,14 +76,23 @@ const FriendsList = () => {
         }
     };
 
-    // Merge the friends data with the Steam friends data
+    // Merge the friends data with the Steam friends data and sort
     const mergeFriendsData = () => {
-        return friends.map(friend => {
+        const merged = friends.map(friend => {
             const steamFriend = steamFriends.find(sf => sf.steamid === friend.steamFriendId);
             return {
                 ...friend,
                 personastate: steamFriend ? steamFriend.personastate : null,
             };
+        });
+        return sortFriends(merged);
+    };
+
+    // Sort friends: online first, offline last
+    const sortFriends = (friends) => {
+        return friends.sort((a, b) => {
+            const order = [1, 6, 5, 2, 3, 4, 0]; // Online, Looking to play, Looking to trade, Busy, Away, Snooze, Offline
+            return order.indexOf(a.personastate) - order.indexOf(b.personastate);
         });
     };
 
