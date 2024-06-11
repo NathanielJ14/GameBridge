@@ -340,11 +340,6 @@ app.get('/friend/:id', verifyToken, (req, res) => {
 });
 
 
-
-// Setup for discord connection
-
-
-
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
