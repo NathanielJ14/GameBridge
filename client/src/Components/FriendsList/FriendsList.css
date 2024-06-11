@@ -1,61 +1,63 @@
 .friendList {
     background-color: #232222;
     border-radius: 20px;
+    width: 70%;
 }
 
-.table th,
-.table td {
-    border: none;
-    text-align: left;
+.friendAvatar {
+    border-radius: 50%;
+    width: 3em;
+    height: 3em;
+}
+
+.friendName {
+    color: #F72585;
+}
+
+.friendRow {
+    border-bottom: 2px solid rgb(49, 47, 47);
+}
+
+.friendCol {
+    height: 90%;
+    max-height: 100%;
+    overflow-y: scroll
+}
+
+.dot {
+    position: absolute;
+    width: .6em;
+    height: .6em;
+    margin: 10px 0px;
 }
 
 .dotOnline {
     background-color: rgb(84, 196, 84);
-    width: .5em;
-    height: .5em;
-    margin: 10px 0px;
 }
 
 .dotOffline {
     background-color: rgb(236, 71, 71);
-    width: .5em;
-    height: .5em;
-    margin: 10px 0px;
     box-shadow: 0px 0px 10px rgb(212, 63, 63);
 }
 
 .dotSnooze {
     background-color: rgb(74, 131, 218);
-    width: .5em;
-    height: .5em;
-    margin: 10px 0px;
     box-shadow: 0px 0px 10px rgb(89, 130, 192);
 }
 
 .dotAway {
     background-color: rgb(251, 255, 0);
-    width: .5em;
-    height: .5em;
-    margin: 10px 0px;
 }
 
 .dotTrade {
     background-color: rgb(132, 0, 255);
-    width: .5em;
-    height: .5em;
-    margin: 10px 0px;
 }
 
 .dotPlay {
     background-color: rgb(0, 247, 255);
-    width: .5em;
-    height: .5em;
-    margin: 10px 0px;
 }
 
 .dotBusy {
     background-color: rgb(255, 115, 0);
-    width: .5em;
-    height: .5em;
-    margin: 10px 0px;
 }
+

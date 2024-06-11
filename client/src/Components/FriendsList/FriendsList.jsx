@@ -83,6 +83,7 @@ const FriendsList = () => {
             return {
                 ...friend,
                 personastate: steamFriend ? steamFriend.personastate : null,
+                avatar: steamFriend ? steamFriend.avatarmedium : null,
             };
         });
         return sortFriends(merged);
@@ -104,38 +105,29 @@ const FriendsList = () => {
     const mergedFriends = mergeFriendsData();
 
     return (
-        <div className='friendList px-5 py-2'>
+        <div className='friendList py-2'>
             <h1 className='text-center header'>Friends List</h1>
 
-
-            <div className='friendCol'> 
-                <div className='friendRow'>
-                    <div className='friendAvatar'>
-                        
+            <div className='friendCol'>
+                {/* Display friends list using friends name and online status */}
+                {mergedFriends.map(friend => (
+                    <div key={friend.steamid} className='friendRow d-flex mx-3 py-3'>
+                        <div className='friendAvatar d-flex'>
+                            {friend.avatar && <img src={friend.avatar} alt="Avatar" className="friendAvatar" />}
+                            <div className={`rounded-circle ${getDotClassName(friend.personastate)} dot`}></div>
+                        </div>
+                        <div className='friendInfo d-flex flex-column mx-3 justify-content-center'>
+                            <p className='mb-0 friendName'>{friend.name}</p>
+                            <p className='mb-0'>{getStatusString(friend.personastate)}</p>
+                        </div>
                     </div>
-                    <div className='friendInfo'>
-
-                    </div>
-                </div>
+                ))}
             </div>
-
-            <table className="table">
-                
-                <tbody>
-                    {/* Display friends list using friends name and online status */}
-                    {mergedFriends.map(friend => (
-                        <tr key={friend.steamid}>
-                            <td>
-                                <div className={`rounded-circle ${getDotClassName(friend.personastate)}`}></div>
-                            </td>
-                            <td>{friend.name}</td>
-                            <td>{getStatusString(friend.personastate)}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
         </div>
     );
 };
 
 export default FriendsList;
+
+
+//Set scroll to show when user has more than 6 friends and fix dot position
