@@ -105,13 +105,13 @@ const FriendsList = () => {
     const mergedFriends = mergeFriendsData();
 
     return (
-        <div className='friendList py-2'>
+        <div className='friendList py-3'>
             <h1 className='text-center header'>Friends List</h1>
 
             <div className='friendCol'>
                 {/* Display friends list using friends name and online status */}
-                {mergedFriends.map(friend => (
-                    <div key={friend.steamid} className='friendRow d-flex mx-3 py-3'>
+                {mergedFriends.map((friend, index) => (
+                    <div key={friend.steamid} className={`friendRow d-flex p-3 ${index === 0 ? 'firstFriendRow' : ''}`}>
                         <div className='friendAvatar d-flex'>
                             {friend.avatar && <img src={friend.avatar} alt="Avatar" className="friendAvatar" />}
                             <div className={`rounded-circle ${getDotClassName(friend.personastate)} dot`}></div>
