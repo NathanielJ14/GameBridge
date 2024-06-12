@@ -40,7 +40,7 @@ const AccountForm = () => {
 
     return (
         <div>
-            <h2 className="text-center mt-5 mb-5 pb-4 neonHeader">Your Accounts</h2>
+            <h2 className="text-center mt-5 mb-3 pb-4 neonHeader">Your Accounts</h2>
             <div className="row mx-5">
                 <form className="col-md-6" onSubmit={handleSubmit}>
                     <div className="d-flex justify-content-center">
