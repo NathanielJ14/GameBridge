@@ -131,3 +131,5 @@ export default FriendsList;
 
 
 //Set scroll to show when user has more than 6 friends and fix dot position
+//Start creating chat ability
+//Clean up code space
