@@ -120,6 +120,10 @@ const FriendsList = () => {
                             <p className='mb-0 friendName'>{friend.name}</p>
                             <p className='mb-0'>{getStatusString(friend.personastate)}</p>
                         </div>
+                        <div className='friendBtn m-auto'>
+                            <button className='messageFriend btn px-2 py-1 m-1'>Message</button>
+                            <button className='deleteFriend btn px-2 py-1 m-1'>Remove</button>
+                        </div>
                     </div>
                 ))}
             </div>

@@ -66,3 +66,12 @@
     background-color: rgb(255, 115, 0);
 }
 
+.deleteFriend {
+    color: white;
+    background: linear-gradient(to right, #F72585, #B5179E);
+}
+
+.deleteFriend:hover {
+    background: linear-gradient(to right, #c5c0c2, #beb7bd);
+    color: #ff0000;
+}
