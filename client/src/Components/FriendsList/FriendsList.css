@@ -68,10 +68,26 @@
 
 .deleteFriend {
     color: white;
-    background: linear-gradient(to right, #F72585, #B5179E);
+    background-color: #f03e3e;
+    text-shadow: 0px 2px 5px black;
+    border: 0;
 }
 
 .deleteFriend:hover {
-    background: linear-gradient(to right, #c5c0c2, #beb7bd);
     color: #ff0000;
+    background-color: rgb(49, 47, 47);
+    border: 1px solid #f03e3e;
+}
+
+.messageFriend {
+    color: white;
+    background-color: #376cce;
+    text-shadow: 0px 2px 5px black;
+    border: 0;
+}
+
+.messageFriend:hover {
+    color: #376cce;
+    background-color: rgb(49, 47, 47);
+    border: 1px solid #376cce;
 }
